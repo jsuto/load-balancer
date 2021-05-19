@@ -1,6 +1,6 @@
 # Setup a load balancer with 2 nginx backends
 
-# Start the containers (and show their logs)
+## Start the containers (and show their logs)
 
 ```
 $ docker-compose up
