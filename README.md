@@ -1,3 +1,8 @@
+# Setup a load balancer with 2 nginx backends
+
+# Start the containers (and show their logs)
+
+```
 $ docker-compose up
 Starting nginx2 ... done
 Starting nginx1 ... done
@@ -28,3 +33,20 @@ nginx1     | 172.21.0.4 - - [19/May/2021:14:49:50 +0000] "GET / HTTP/1.1" 200 42
 nginx2     | 172.21.0.4 - - [19/May/2021:14:49:50 +0000] "GET / HTTP/1.1" 200 42 "-" "curl/7.68.0" "172.21.0.1"
 nginx1     | 172.21.0.4 - - [19/May/2021:14:49:50 +0000] "GET / HTTP/1.1" 200 42 "-" "curl/7.68.0" "172.21.0.1"
 nginx2     | 172.21.0.4 - - [19/May/2021:14:49:50 +0000] "GET / HTTP/1.1" 200 42 "-" "curl/7.68.0" "172.21.0.1"
+```
+
+## Test the loadbalancer
+
+```
+$ for i in {1..10}; do curl localhost; done
+Welcome to nginx running on 2ac7e3e496c8
+Welcome to nginx running on 7bf62bb06722
+Welcome to nginx running on 2ac7e3e496c8
+Welcome to nginx running on 7bf62bb06722
+Welcome to nginx running on 2ac7e3e496c8
+Welcome to nginx running on 7bf62bb06722
+Welcome to nginx running on 2ac7e3e496c8
+Welcome to nginx running on 7bf62bb06722
+Welcome to nginx running on 2ac7e3e496c8
+Welcome to nginx running on 7bf62bb06722
+```
