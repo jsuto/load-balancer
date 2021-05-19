@@ -1,0 +1,21 @@
+providers:
+  file:
+    filename: "/traefik.yaml"
+
+entryPoints:
+  web:
+    address: ":80"
+
+http:
+  routers:
+    my-service:
+      rule: "Host(`localhost`)"
+      service: my-service
+
+  services:
+    my-service:
+      loadBalancer:
+        servers:
+        - url: "http://nginx1/"
+        - url: "http://nginx2/"
+
