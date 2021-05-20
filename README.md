@@ -39,14 +39,50 @@ nginx2     | 172.21.0.4 - - [19/May/2021:14:49:50 +0000] "GET / HTTP/1.1" 200 42
 
 ```
 $ for i in {1..10}; do curl localhost; done
-Welcome to nginx running on 2ac7e3e496c8
-Welcome to nginx running on 7bf62bb06722
-Welcome to nginx running on 2ac7e3e496c8
-Welcome to nginx running on 7bf62bb06722
-Welcome to nginx running on 2ac7e3e496c8
-Welcome to nginx running on 7bf62bb06722
-Welcome to nginx running on 2ac7e3e496c8
-Welcome to nginx running on 7bf62bb06722
-Welcome to nginx running on 2ac7e3e496c8
-Welcome to nginx running on 7bf62bb06722
+8d243346e20d
+7747589531ce
+8d243346e20d
+7747589531ce
+8d243346e20d
+7747589531ce
+8d243346e20d
+7747589531ce
+8d243346e20d
+7747589531ce
+```
+
+## How not to run as root
+
+Use the user remapping feature of docker
+
+/etc/docker/daemon.json:
+
+```
+{
+   "userns-remap": "default"
+}
+
+```
+/etc/subuid:
+
+```
+dockremap:100000:65536
+```
+
+/etc/subgid:
+
+```
+dockremap:100000:65536
+```
+
+Even though some processes run as root inside the container,
+they are non-privileged processes on the host:
+
+```
+$ ps uaxw|grep -E 'nginx|traefik'|grep -v grep
+100000      8341  0.1  0.1  10648  6176 ?        Ss   12:04   0:00 nginx: master process nginx -g daemon off;
+100000      8342  0.1  0.1  10648  6128 ?        Ss   12:04   0:00 nginx: master process nginx -g daemon off;
+100101      8460  0.0  0.0  11036  2636 ?        S    12:04   0:00 nginx: worker process
+100101      8493  0.0  0.0  11036  2572 ?        S    12:04   0:00 nginx: worker process
+100000      8539  2.3  1.3 788052 52728 ?        Ssl  12:04   0:00 traefik traefik
 ```
