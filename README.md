@@ -86,3 +86,5 @@ $ ps uaxw|grep -E 'nginx|traefik'|grep -v grep
 100101      8493  0.0  0.0  11036  2572 ?        S    12:04   0:00 nginx: worker process
 100000      8539  2.3  1.3 788052 52728 ?        Ssl  12:04   0:00 traefik traefik
 ```
+
+See [https://www.youtube.com/watch?v=RnWHLthz41Q&t=993s](https://www.youtube.com/watch?v=RnWHLthz41Q&t=993s) for more.
